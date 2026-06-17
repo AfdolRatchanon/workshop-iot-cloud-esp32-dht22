@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Realtime Sensor Data</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .box {
+            display: inline-block;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h2>อุณหภูมิ: <span id="temp">--</span> °C</h2>
+        <h2>ความชื้น: <span id="hum">--</span> %</h2>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-database.js";
+
+        // 1. ใส่ URL ของ Database ของคุณ
+        const firebaseConfig = {
+            databaseURL: "https://iot-to-firebase-a1c09-default-rtdb.firebaseio.com/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // 2. ระบุ Path ที่เก็บข้อมูล (ในตัวอย่างนี้สมมติชื่อ 'sensors')
+        const sensorRef = ref(db);
+
+        // 3. ดึงข้อมูลแบบ Realtime
+        onValue(sensorRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                document.getElementById('temp').innerText = data.temperature || "--";
+                document.getElementById('hum').innerText = data.humidity || "--";
+            }
+        });
+    </script>
+
+</body>
+
+</html>
