@@ -3,10 +3,10 @@
 #include <DHT.h>
 
 // ปรับโครงสร้างข้อมูลเชื่อมต่อให้ถูกต้อง
-#define FIREBASE_HOST "iot-to-firebase-a1c09-default-rtdb.firebaseio.com" 
+#define FIREBASE_HOST "iot-to-firebase-a1c09-default-rtdb.firebaseio.com/" 
 #define FIREBASE_AUTH "AIzaSyD_enLslvmWUS6o5XnTVWMODsOVr1Ezrn0"
 
-DHT dht(4, DHT22);
+DHT dht(4, DHT11);
 
 // ประกาศตัวแปรโครงสร้างคอนฟิก
 FirebaseData fbdo;
@@ -18,7 +18,7 @@ void setup() {
   dht.begin();
 
   // ใส่ชื่อและรหัสผ่าน Wi-Fi บ้านของคุณ
-  WiFi.begin("Teacher2312", "12345678");
+  WiFi.begin("IoTCloud_2.4Ghz", "iotcloud");
   while (WiFi.status() != WL_CONNECTED) { delay(500); }
 
   // กำหนดค่าคอนฟิกให้กับไลบรารีที่คุณมีอยู่

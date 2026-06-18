@@ -3,10 +3,10 @@
 #include <DHT.h>
 
 // ปรับลิงก์ฐานข้อมูลให้ถูกต้องเรียบร้อยแล้วตามข้อมูลโปรเจกต์ของคุณ
-#define FIREBASE_HOST "iot-to-firebase-a1c09-default-rtdb.firebaseio.com" 
+#define FIREBASE_HOST "iot-to-firebase-a1c09-default-rtdb.firebaseio.com/" 
 #define FIREBASE_AUTH "AIzaSyD_enLslvmWUS6o5XnTVWMODsOVr1Ezrn0"
 
-DHT dht(4, DHT22);
+DHT dht(4, DHT11);
 
 FirebaseData fbdo;
 FirebaseConfig config;
@@ -20,7 +20,7 @@ void setup() {
 
   // 1. ตรวจเช็คสถานะการเชื่อมต่อ Wi-Fi
   Serial.print("กำลังเชื่อมต่อ Wi-Fi");
-  WiFi.begin("Teacher2312", "12345678"); // <-- อย่าลืมแก้ชื่อ/รหัส Wi-Fi ตรงนี้
+  WiFi.begin("IoTCloud_2.4Ghz", "iotcloud"); // <-- อย่าลืมแก้ชื่อ/รหัส Wi-Fi ตรงนี้
   
   while (WiFi.status() != WL_CONNECTED) { 
     delay(500); 
@@ -46,7 +46,7 @@ void loop() {
   float h = dht.readHumidity();
 
   if (isnan(t) || isnan(h)) {
-    Serial.println("[แจ้งเตือน] อ่านค่าจากเซนเซอร์ DHT22 ไม่ได้! เช็คสายสัญญาณ");
+    Serial.println("[แจ้งเตือน] อ่านค่าจากเซนเซอร์ DHT11 ไม่ได้! เช็คสายสัญญาณ");
     delay(2000);
     return;
   }
